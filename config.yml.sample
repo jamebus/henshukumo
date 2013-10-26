@@ -1,0 +1,17 @@
+--- 
+max_persistent_conns: 100
+environment: development
+log: log/thin.log
+max_conns: 1024
+address: localhost
+pid: tmp/pids/thin.pid
+chdir: /home/bus/henshukumo
+wait: 30
+timeout: 0
+require: []
+port: 8888
+threaded: true
+daemonize: true
+servers: 1
+rackup: config.ru
+tag: henshukumo

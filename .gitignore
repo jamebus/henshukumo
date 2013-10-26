@@ -1,0 +1,5 @@
+henshukumo.yml
+config.yml
+log/*.log
+log/*.log.*
+tmp/pids/*.pid
