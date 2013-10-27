@@ -1,9 +1,13 @@
 class Editor
 
-	EDITOR_COMMAND = ENV['HENSHUKUMO_EDITOR_COMAMND'] || 'gvim -f'
+	@editor_command = 'gvim -f'
 
 	def self.run(filename)
-		system *[ EDITOR_COMMAND.split(' '), filename ].flatten
+		system *[ self.editor_command.split(' '), filename ].flatten
+	end
+
+	class << self
+		attr_accessor :editor_command
 	end
 
 end

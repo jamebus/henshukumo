@@ -1,3 +1,5 @@
+editor_command: gvim -f
+
 auth:
         username: your_username
         password: your_password

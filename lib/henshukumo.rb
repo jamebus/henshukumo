@@ -1,4 +1,5 @@
 require 'rubygems'
+require 'editor'
 require 'editsession'
 require 'uri'
 require 'sinatra'
@@ -6,9 +7,10 @@ require 'sinatra/config_file'
 
 configure do
 	config_file [ Dir.pwd, 'henshukumo.yml' ].join('/')
-	set :auth, {}                   unless settings.auth
-	set :auth, { :username => nil } unless settings.auth[:username]
-	set :auth, { :password => nil } unless settings.auth[:password]
+	set :auth, {}                    unless settings.respond_to? :auth
+	set :auth, { 'username' => nil } unless settings.auth['username']
+	set :auth, { 'password' => nil } unless settings.auth['password']
+	Editor.editor_command = settings.editor_command if settings.respond_to? :editor_command
 end
 
 get '/' do
@@ -29,8 +31,8 @@ end
 
 helpers do
 	def authenticate!
-		return if settings.auth[:username].nil?
-		return if settings.auth[:password].nil?
+		return if settings.auth['username'].nil?
+		return if settings.auth['password'].nil?
 		return if authenticated?
 		headers['WWW-Authenticate'] = 'Basic realm="Henshukumo"'
 		halt 401, "Not authorized.\n"
@@ -41,6 +43,6 @@ helpers do
 		@auth.provided? and \
 			@auth.basic? and \
 			@auth.credentials and \
-			@auth.credentials == [ settings.auth[:username], settings.auth[:password] ]
+			@auth.credentials == [ settings.auth['username'], settings.auth['password'] ]
 	end
 end
