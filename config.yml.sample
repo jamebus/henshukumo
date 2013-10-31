@@ -1,6 +1,6 @@
 --- 
 max_persistent_conns: 100
-environment: development
+environment: production
 log: log/thin.log
 max_conns: 1024
 address: localhost
